@@ -34,7 +34,7 @@ export default function RootLayout({
    return (
       <html lang="en" className="">
          <body
-            className={`h-screen bg-gray-200 text-slate-700 dark:text-slate-100 dark:bg-[#121212] ${urbanistVar.className}  antialiased`}
+            className={`h-screen bg-gray-100 text-slate-700 dark:text-slate-100 dark:bg-[#121212] ${urbanistVar.className}  antialiased`}
          >
             {children}
          </body>

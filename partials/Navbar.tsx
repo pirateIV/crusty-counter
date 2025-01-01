@@ -1,32 +1,30 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
    CalendarDays,
    Clock8,
    Croissant,
    Dot,
+   Menu,
    Minus,
    Power,
 } from "lucide-react";
-import { getCurrentTime, getDateTime, getTodaysDate } from "@/helpers";
+import useTime from "@/hooks/useTime";
 
 const Navbar = () => {
-   const { date, time } = getDateTime();
-   const [currentTime, setCurrentTime] = useState(time);
+   const { currentTime, date } = useTime();
 
-   useEffect(() => {
-      setInterval(() => setCurrentTime(getCurrentTime()), 10);
-   }, [currentTime]);
+   const [isOrderOpen, setIsOrderOpen] = useState(false);
 
    return (
       <header>
          <div className="h-12 flex items-center justify-between text-sm *:h-full">
             <div className="flex items-center *:flex *:items-center gap-x-5 *:h-full">
                <div className="bg-white rounded-full size-12 dark:bg-gray-800">
-                  <button className="size-full flex items-center justify-center p-2 text-[brown] rounded-full">
-                     <Croissant />
+                  <button className="size-full flex items-center justify-center p-2 text-slate-600 rounded-full">
+                     <Menu />
                   </button>
                </div>
 
@@ -64,7 +62,7 @@ const Navbar = () => {
                   <span className="font-semibold">Open Order</span>
                   {/* <span className="font-semibold">Close Order</span> */}
                   <span className="p-2 ms-5 bg-green-100 rounded-full dark:bg-opacity-15 dark:group-hover:bg-opacity-15">
-                  {/* <span className="p-2 ms-5 bg-red-100 rounded-full group-hover:bg-red-200 dark:bg-opacity-15 dark:group-hover:bg-opacity-15"> */}
+                     {/* <span className="p-2 ms-5 bg-red-100 rounded-full group-hover:bg-red-200 dark:bg-opacity-15 dark:group-hover:bg-opacity-15"> */}
                      <Power size="16" />
                   </span>
                </button>
