@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+   *,
+   ::after,
+   ::before,
+   ::backdrop,
+   ::file-selector-button {
+      border-color: var(--color-gray-200, currentColor);
+   }
+
+   html {
+      font-feature-settings:  "cv04", "cv11";
+   }
+}
+
+:root {
+   --royal-blue: #2D71F8;
+   --elf-green: #1C8370;
+   --coral-red: #FC4A4A;
+}
+
+@view-transition {
+   navigation: auto;
+}
+
+body {
+   color: var(--foreground);
+   background: var(--background);
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+.scroll {
+   /* scrollbar-width: thin; */
+}
+
+.scroll::-webkit-scrollbar{
+   background-color: transparent;
+   width: 4px;
+height: 5px;
+
+}
+
+.scroll::-webkit-scrollbar-corner{
+   /* background-color: red; */
+
+}
+.scroll::-webkit-scrollbar-thumb{
+   background-color: rgb(119, 119, 119);
+   width: 4px;
+
+
+}
+.scroll::-webkit-scrollbar-track{
+   background-color: rgb(190, 190, 190);
+   width: 4px;
+}
+.scroll::-webkit-scrollbar-track-piece{
+   /* background-color: red; */
+}
