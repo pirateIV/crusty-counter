@@ -27,12 +27,16 @@ import {
    Soup,
 } from "lucide-react";
 import clsx from "clsx";
-import { useState } from "react";
+import React, { JSX, useState } from "react";
 import DashedGradient from "@/components/DashedGradient";
 import foodItems from "@/data/items";
-import { INSPECT_MAX_BYTES } from "buffer";
+import Image from "next/image";
 
-const foodTypes = [
+const foodTypes: {
+   type: FoodType;
+   count: number;
+   icon: JSX.Element | string;
+}[] = [
    { type: "All Menu", count: 110, icon: <Soup /> },
    { type: "Bread", count: 20, icon: "" },
    { type: "Beverages", count: 20, icon: <Coffee /> },
@@ -51,25 +55,28 @@ const people = [
    { id: 5, name: "Devon Webb" },
 ];
 
-type Theme = {
-   Bread: string;
-   Beverages: string;
-   Cakes: string;
-   Donuts: string;
-   Pastries: string;
-   Sandwich: string;
-   Tart: string;
-};
+type FoodType =
+   | "All Menu"
+   | "Bread"
+   | "Beverages"
+   | "Cakes"
+   | "Donuts"
+   | "Pastries"
+   | "Sandwich"
+   | "Tart";
 
-function updateFoodTypeDescTheme(type: keyof Theme) {
+type Theme = Record<FoodType, string>;
+
+function updateFoodTypeDescTheme(type: FoodType) {
    const themes: Theme = {
-      Bread: "text-blue-500 bg-blue-100",
-      Beverages: "text-blue-500 bg-blue-100",
-      Cakes: "text-blue-500 bg-blue-100",
-      Donuts: "text-blue-500 bg-blue-100",
-      Pastries: "text-blue-500 bg-blue-100",
-      Sandwich: "text-blue-500 bg-blue-100",
-      Tart: "text-blue-500 bg-blue-100",
+      "All Menu": "",
+      Bread: "text-blue-500 bg-blue-50",
+      Beverages: "text-stone-500 bg-stone-50",
+      Cakes: "text-pink-500 bg-pink-50",
+      Donuts: "text-blue-500 bg-blue-50",
+      Pastries: "text-green-500 bg-green-50",
+      Sandwich: "text-orange-500 bg-orange-50",
+      Tart: "text-fuchsia-500 bg-fuchsia-50",
    };
 
    return themes[type];
@@ -86,7 +93,6 @@ export default function Home() {
               return person.name.toLowerCase().includes(query.toLowerCase());
            });
 
-   console.log(foodItems);
    return (
       <div className="grid grid-cols-10 gap-3 p-2.5 h-screen">
          <div className="col-span-6 space-y-3 h-full overflow-y-auto scroll">
@@ -137,18 +143,22 @@ export default function Home() {
             </section>
 
             <div className="grid grid-cols-4 gap-2.5">
-               {foodItems.map((foodItem) => (
-                  <>
-                     {foodItem.items.map((item) => (
-                        <div className="bg-white rounded-2xl p-2">
+               {foodItems.map((foodItem, index) => (
+                  <React.Fragment key={index}>
+                     {foodItem.items.map((item, i) => (
+                        <div key={i} className="bg-white rounded-2xl p-2">
                            <div className="h-32 w-full bg-gray-100 rounded-xl ">
-                              <img src="" className="border-none" alt="" />
+                              <Image src={null} className="border-none" alt="" />
                            </div>
                            <div className="my-2">
                               <h5 className="font-semibold">{item.name}</h5>
                            </div>
                            <div className="flex items-center justify-between">
-                              <span className="text-sm font-medium text-pink-500 px-2.5 py-0.5 bg-pink-100 rounded-full">
+                              <span
+                                 className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${updateFoodTypeDescTheme(
+                                    foodItem.type
+                                 )}`}
+                              >
                                  {foodItem.type}
                               </span>
                               <span className="font-semibold">
@@ -157,7 +167,7 @@ export default function Home() {
                            </div>
                         </div>
                      ))}
-                  </>
+                  </React.Fragment>
                ))}
             </div>
          </div>
